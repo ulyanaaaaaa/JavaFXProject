@@ -3,13 +3,18 @@ package com.example.kursovoi2.client;
 import com.example.kursovoi2.MainApplication;
 import com.example.kursovoi2.client.guiTools.modules.functional.AccountModule;
 import com.example.kursovoi2.client.hibernate.dao.functional.AccountDao;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -66,8 +71,12 @@ public class AdminController {
     public void OnInitialise() {
         TableColumn<AccountModule, String> login = new TableColumn<>("Login");
         TableColumn<AccountModule, String> blocked = new TableColumn<>("Status");
+
         login.setCellValueFactory(c -> c.getValue().getLogin());
-        blocked.setCellValueFactory(c -> c.getValue().getBlocked());
+
+        blocked.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().isBlocked() ? "Blocked" : "Active"
+        ));
 
         tableView.setRowFactory(tv -> {
             TableRow<AccountModule> row = new TableRow<>();
@@ -80,9 +89,9 @@ public class AdminController {
         });
 
         tableView.getColumns().addAll(login, blocked);
+
         FetchAll();
     }
-
     @FXML
     private void Help() {
         Stage stage = new Stage();
@@ -127,6 +136,40 @@ public class AdminController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void saveInFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Accounts");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                for (AccountModule module : tableView.getItems()) {
+                    String line = module.getLogin().get() + "," + (module.isBlocked() ? "Blocked" : "Active");
+                    writer.write(line);
+                    writer.newLine();
+                }
+                // Optional: Show a success message
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null);
+                alert.setContentText("Accounts saved to file successfully!");
+                alert.showAndWait();
+            } catch (IOException e) {
+                // Handle the exception (e.g., show an error message)
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Failed to save accounts");
+                alert.setContentText("An error occurred while saving the file: " + e.getMessage());
+                alert.showAndWait();
+            }
         }
     }
 }

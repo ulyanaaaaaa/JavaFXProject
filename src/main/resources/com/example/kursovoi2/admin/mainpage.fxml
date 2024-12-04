@@ -21,6 +21,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#openFindAccountDialog" text="Find Account" />
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="Save in file">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#saveInFile" text="Save in file" />
+                    </items>
+                </Menu>
             </menus>
         </MenuBar>
 
