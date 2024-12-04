@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:controller="com.example.kursovoi2.client.RecordViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <children>
+      <Label text="ID:" />
+      <JFXComboBox fx:id="client" prefWidth="150.0" promptText="Client" />
+      <JFXComboBox fx:id="worker" prefWidth="150.0" promptText="Worker" />
+      <JFXDatePicker fx:id="datePicker" promptText="Date" />
+      <JFXTimePicker fx:id="timePicker" promptText="Time" />
+      <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#Save" text="Save" />
+      <JFXButton mnemonicParsing="false" onAction="#Delete" text="Delete" />
+   </children>
+</HBox>
