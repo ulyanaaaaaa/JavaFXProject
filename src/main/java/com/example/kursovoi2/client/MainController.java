@@ -82,6 +82,26 @@ public class MainController {
     }
 
     @FXML
+    private void Logout(ActionEvent event) {
+        try {
+            Stage currentStage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+            currentStage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("login-view.fxml"));
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(fxmlLoader.load(), 320, 240));
+            loginStage.setTitle("Login");
+            loginStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to log out");
+            alert.setContentText("An error occurred: " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
     public void OpenEditRecordDialog() {
         // Add here TableView support
 

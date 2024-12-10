@@ -26,6 +26,16 @@
                         <MenuItem mnemonicParsing="false" onAction="#saveInFile" text="Save in file" />
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="ShowAllAccounts">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#ShowAllAccounts" text="ShowAllAccounts" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Logout">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#Logout" text="Logout" />
+                    </items>
+                </Menu>
             </menus>
         </MenuBar>
 

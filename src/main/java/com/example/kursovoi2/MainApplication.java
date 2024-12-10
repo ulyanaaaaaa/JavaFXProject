@@ -1,7 +1,6 @@
 package com.example.kursovoi2;
 
 import com.example.kursovoi2.API.NetworkController;
-import com.example.kursovoi2.client.hibernate.TransactionController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

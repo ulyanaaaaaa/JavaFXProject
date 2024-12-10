@@ -4,6 +4,7 @@ import com.example.kursovoi2.MainApplication;
 import com.example.kursovoi2.client.guiTools.modules.functional.AccountModule;
 import com.example.kursovoi2.client.hibernate.dao.functional.AccountDao;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,9 @@ public class AdminController {
 
     @FXML
     private Button showAllButton;
+
+    @FXML
+    private Button logoutButton;
 
     private void BlockAccountDialog(AccountModule module) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Warning!", ButtonType.OK, ButtonType.CANCEL);
@@ -60,6 +64,26 @@ public class AdminController {
             AccountModule module = new AccountModule();
             module.convertFrom(dao);
             tableView.getItems().add(module);
+        }
+    }
+
+    @FXML
+    private void Logout(ActionEvent event) {
+        try {
+            Stage currentStage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+            currentStage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("login-view.fxml"));
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(fxmlLoader.load(), 320, 240));
+            loginStage.setTitle("Login");
+            loginStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to log out");
+            alert.setContentText("An error occurred: " + e.getMessage());
+            alert.showAndWait();
         }
     }
 

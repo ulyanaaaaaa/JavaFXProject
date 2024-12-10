@@ -12,6 +12,6 @@ public class ServerMain extends Application {
     @Override
     public void start(Stage primaryStage) {
         Server server = new Server();
-        new Thread(server::start).start(); // Запуск сервера в отдельном потоке
+        new Thread(server::start).start();
     }
 }
